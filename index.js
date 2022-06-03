@@ -1,19 +1,19 @@
 const connectDB = require("./db/connect");
 const usersRouter = require("./routes/users.routes");
+const errorHandleMiddleware = require("./middleware/error-handler");
+const notFound = require("./middleware/not-found");
 
 require("dotenv").config();
 const express = require("express");
 const app = express();
 
+// middleware
 app.use(express.json());
 
-// error handle
-const errorHandleMiddleware = require("./middleware/error-handler");
-const notFound = require("./middleware/not-found");
-
-app.use("/api", usersRouter);
+app.use("/api/v1/user", usersRouter);
 app.get("/", (req, res) => res.send("Hello World!"));
 
+// error handle
 app.use(errorHandleMiddleware);
 app.use(notFound);
 
