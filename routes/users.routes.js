@@ -1,9 +1,6 @@
 const router = require("express").Router();
 const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("../controllers/verifyToken");
-const { getUserStats, getAllUsers, getUser, postUser, updateUser, deleteUser } = require("../controllers/users.controllers");
-
-// router.route("/").get(getAllUsers).post(postUser);
-// router.route("/:id").put(updateUser).delete(deleteUser);
+const { getUserStats, getAllUsers, getUser, updateUser, deleteUser } = require("../controllers/users.controllers");
 
 router.get("/", getAllUsers);
 router.get("/find/:id", verifyTokenAndAdmin, getUser);

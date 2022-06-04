@@ -1,5 +1,4 @@
 const asyncWrapper = require("../middleware/async");
-const { createCustomError } = require("../error/custom-error");
 const CryptoJS = require("crypto-js");
 const User = require("../models/user.model");
 
@@ -41,13 +40,8 @@ const getUserStats = asyncWrapper(async (req, res) => {
     res.status(200).json(data);
 });
 
-const postUser = asyncWrapper(async (req, res) => {
-    const userName = req.body.username;
-    res.send(userName);
-});
-
 // UPDATE USER
-const updateUser = asyncWrapper(async (req, res, next) => {
+const updateUser = asyncWrapper(async (req, res) => {
     if (req.body.password) {
         req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString();
     }
@@ -63,16 +57,15 @@ const updateUser = asyncWrapper(async (req, res, next) => {
 });
 
 // DELETE USER
-const deleteUser = asyncWrapper(async (req, res, next) => {
-    const user = await User.findByIdAndDelete(req.params.id);
-
+const deleteUser = asyncWrapper(async (req, res) => {
+    await User.findByIdAndDelete(req.params.id);
+    
     res.status(200).json("User has been deleted...");
 });
 
 module.exports = {
     getAllUsers,
     getUser,
-    postUser,
     updateUser,
     deleteUser,
     getUserStats,
