@@ -1,5 +1,4 @@
 const asyncWrapper = require("../middleware/async");
-const CryptoJS = require("crypto-js");
 const Product = require("../models/product.model");
 
 // CREATE PRODUCT
@@ -40,10 +39,6 @@ const getProduct = asyncWrapper(async (req, res) => {
 
 // UPDATE PRODUCT
 const updateProduct = asyncWrapper(async (req, res) => {
-    if (req.body.password) {
-        req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString();
-    }
-
     const updatedProduct = await Product.findByIdAndUpdate(
         req.params.id,
         {
