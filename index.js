@@ -29,7 +29,7 @@ app.get("/", (req, res) => res.send("Hello World!"));
 app.use(errorHandleMiddleware);
 app.use(notFound);
 
-const port = 3000;
+const port = 8000;
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI);
