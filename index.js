@@ -17,13 +17,13 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => res.send("Hello World!"));
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/chekout", stripeRouter);
+app.get("/", (req, res) => res.send("Hello World!"));
 
 // error handle
 app.use(errorHandleMiddleware);
