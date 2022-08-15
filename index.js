@@ -15,6 +15,7 @@ const cors = require("cors");
 
 // middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/api/v1/users", usersRouter);
@@ -29,11 +30,11 @@ app.get("/", (req, res) => res.send("Hello World!"));
 app.use(errorHandleMiddleware);
 app.use(notFound);
 
-const port = 8000;
+const PORT = process.env.PORT || 8080;
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI);
-        app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+        app.listen(PORT, () => console.log(`Example app listening on PORT ${PORT}!`));
     } catch (error) {
         console.log(error);
     }
